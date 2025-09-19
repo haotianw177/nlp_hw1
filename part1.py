@@ -1,98 +1,3 @@
-# import math
-# from collections import defaultdict
-# from utils import Vocab, read_data
-# """You should not need any other imports."""
-
-# """ We use a class to maintain state (vocabulary, counts, probabilities) 
-#  across multiple operations. Without a class, we'd have to pass these data structures 
-#  between functions constantly, making code messy and error-prone. """
-# class NGramModel:
-# 	""" The value n determines the model type (unigram vs n-gram). We store it because:
-# 	 1. Different n values require different context lengths
-# 	 2. We need it throughout the model's lifetime for predictions
-# 	 3. Alternative without this: We'd have to pass n to every method call, which is inefficient"""
-# 	def __init__(self, n, data):
-# 		self.n = n
-# 		""" Characters must be converted to numbers for Efficient storage (integers vs strings)
-# 			, Mathematical operations (can't do math on characters directly), Consistent indexing across the model
-# 		"""
-# 		self.vocab = Vocab()
-# 		"""TODO: Populate vocabulary with all possible characters/symbols in the data, including '<BOS>', '<EOS>', and '<UNK>'."""
-# 		# REQUIREMENT 1: Populate vocabulary with all possible characters/symbols
-# 		# Add special tokens first
-# 		self.vocab.add('<BOS>')  # Beginning of sentence
-# 		self.vocab.add('<EOS>')  # End of sentence  
-# 		self.vocab.add('<UNK>')  # Unknown character
-
-# 		# Add all characters from training data
-# 		for sentence in data:
-# 			for char in sentence:
-# 				if char not in self.vocab.sym2num:
-# 					self.vocab.add(char) # Gets next available index
-
-# 		self.counts = defaultdict(lambda: defaultdict(int))
-
-# 	def start(self):
-# 		return ['<BOS>'] * (self.n - 1) # Remember that read_data prepends one <BOS> tag. Depending on your implementation, you may need to remove or work around that. No n-gram should have exclusively <BOS> tags; initial context should be n-1 <BOS> tags and the first prediction should be of the first non-BOS token.
-
-# 	def fit(self, data):
-# 		"""TODO: 
-# 			* Train the model on the training data by populating the counts. 
-# 				* For n>1, you will need to keep track of the context and keep updating it. 
-# 				* Get the starting context with self.start().
-# 		"""
-# 		# STEP 1: Count occurrences of characters with their contexts
-# 		for sentence in data:
-# 			# get starting context
-# 			context = self.start()
-
-# 			# process each character in the sentence
-# 			for char in sentence:
-# 				if self.n == 1:
-# 					# unigram, no context needed, use empty tuple
-
-# 		self.probs = {}
-# 		"""TODO: Populate self.probs by converting counts to log probabilities with add-1 smoothing."""
-# 		raise NotImplementedError
-
-# 	def step(self, context):
-# 		"""Returns the distribution over possible next symbols. For unseen contexts, backs off to unigram distribution."""
-# 		context = self.start() + context
-# 		context = tuple(context[-(self.n - 1):]) # cap the context at length n-1
-# 		if context in self.probs:
-# 			return self.probs[context]
-# 		else:
-# 			return {sym: math.log(1 / len(self.vocab)) for sym in self.vocab.sym2num}
-
-# 	def predict(self, context):
-# 	    """TODO: Return the most likely next symbol given a context. Hint: use step()."""
-# 	    raise NotImplementedError
-
-# 	def evaluate(self, data):
-# 		"""TODO: Calculate and return the accuracy of predicting the next character given the original context over all sentences in the data. Remember to provide the self.start() context for n>1."""
-# 		raise NotImplementedError
-
-# if __name__ == '__main__':
-
-# 	train_data = read_data('train.txt')
-# 	val_data = read_data('val.txt')
-# 	test_data = read_data('test.txt')
-# 	response_data = read_data('response.txt')
-
-# 	n = 1 # TODO: n=1 and n=5
-# 	model = NGramModel(n, train_data)
-# 	model.fit(train_data)
-# 	print(model.evaluate(val_data), model.evaluate(test_data))
-
-# 	"""Generate the next 100 characters for the free response questions."""
-# 	for x in response_data:
-# 		x = x[:-1] # remove EOS
-# 		for _ in range(100):
-# 			y = model.predict(x)
-# 			x += y
-# 		print(''.join(x))
-
-
 import math
 from collections import defaultdict
 from utils import Vocab, read_data
@@ -270,16 +175,15 @@ if __name__ == '__main__':
 	
 	# Generate text for unigram model
 	print("\nGenerating 100 characters for each prompt (Unigram):")
-	unigram_generated = []
 	for i, x in enumerate(response_data, 1):
-		x_list = list(x[:-1])  # Remove EOS and convert to list for mutation
+		generated_chars = []
 		for _ in range(100):
 			y = model.predict([])  # Unigram uses empty context
-			x_list.append(y)
-		result = ''.join(x_list)
-		unigram_generated.append(result)
-		# Show first 80 chars of generated text
-		print(f"Prompt {i}: {result[:80]}...")
+			generated_chars.append(y)
+		result = ''.join(generated_chars)
+		# Make spaces visible by replacing them with a visible character
+		visible_result = result.replace(' ', '␣')
+		print(f"Prompt {i}: {visible_result}")
 	
 	# ========================================================================
 	# REQUIREMENT 3 & 4: 5-GRAM MODEL (n=5) - 3 points + 1 point
@@ -303,22 +207,17 @@ if __name__ == '__main__':
 	
 	# Generate text for 5-gram model
 	print("\nGenerating 100 characters for each prompt (5-gram):")
-	fivegram_generated = []
 	for i, x in enumerate(response_data, 1):
-		x_list = list(x[:-1])  # Remove EOS and convert to list
-		# Initialize context with the prompt
-		context = list(x_list)
-		# Start generation with the original prompt
-		generated = list(x_list)
+		context = list(x[:-1])  # Remove EOS
+		generated_chars = []
 		for _ in range(100):
 			y = model.predict(context)
-			generated.append(y)
+			generated_chars.append(y)
 			# Update context: slide window (remove first, add new)
 			context = context[1:] + [y]
-		result = ''.join(generated)
-		fivegram_generated.append(result)
-		# Show first 80 chars of generated text
-		print(f"Prompt {i}: {result[:80]}...")
+		result = ''.join(generated_chars)
+		# Print the full 100 characters without truncation
+		print(f"Prompt {i}: {result}")
 	
 	# ========================================================================
 	# REQUIREMENT 5: FREE RESPONSE ANALYSIS - 1 point
@@ -341,8 +240,8 @@ if __name__ == '__main__':
 	print("\nWhy 5-gram is better:")
 	print("  1. Context Awareness: 5-gram uses previous 4 characters to predict next")
 	print("     character, while unigram treats each character independently")
-	print("  2. Pattern Recognition: Captures common sequences like 'ing', 'tion', 'the'")
-	print("  3. Coherent Text: Generates more word-like and readable sequences")
+	print("  2. Pattern Recognition: It allows the model to captures common sequences like 'ing', 'tion', 'the'")
+	print("  3. Coherent Text: The model generates more word-like and readable sequences")
 	print("  4. Better Accuracy: 3x higher prediction accuracy shows it learned")
 	print("     meaningful patterns from the data")
 	
@@ -388,7 +287,7 @@ if __name__ == '__main__':
 	print(f"{'Unigram (n=1)':<15} {val_acc_1:>10.2f}% {test_acc_1:>10.2f}% {'≥17%':<12} {status_1}")
 	print(f"{'5-gram (n=5)':<15} {val_acc_5:>10.2f}% {test_acc_5:>10.2f}% {'≥57%':<12} {status_5}")
 	
-	print("\n✓ All Part 1 requirements completed!")
+	print("\n✓ All Part 1 requirements completed")
 	print("  - Unigram model with add-one smoothing")
 	print("  - 5-gram model with add-one smoothing")
 	print("  - Accuracy evaluation on validation and test sets")

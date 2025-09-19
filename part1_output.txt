@@ -1,0 +1,99 @@
+============================================================
+PART 1: N-GRAM MODEL IMPLEMENTATION
+============================================================
+
+[UNIGRAM MODEL (n=1)]
+----------------------------------------
+Validation Accuracy: 17.67%
+Test Accuracy: 17.79%
+✓ Meets accuracy requirement (≥17%)
+
+Generating 100 characters for each prompt (Unigram):
+Prompt 1: ␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣
+Prompt 2: ␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣
+Prompt 3: ␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣
+Prompt 4: ␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣
+Prompt 5: ␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣
+
+============================================================
+[5-GRAM MODEL (n=5)]
+----------------------------------------
+Validation Accuracy: 58.95%
+Test Accuracy: 58.44%
+✓ Meets accuracy requirement (≥57%)
+
+Generating 100 characters for each prompt (5-gram):
+Prompt 1: , "i wanted to the boy who listen the boy who listen the boy who listen the boy who listen the boy w
+Prompt 2: , the boy who listen the boy who listen the boy who listen the boy who listen the boy who listen the
+Prompt 3:  said, "i wanted to the boy who listen the boy who listen the boy who listen the boy who listen the 
+Prompt 4:  happy and said, "i wanted to the boy who listen the boy who listen the boy who listen the boy who l
+Prompt 5:  a little girl named lily was a little girl named lily was a little girl named lily was a little gir
+
+============================================================
+FREE RESPONSE ANALYSIS
+============================================================
+
+Question: Which model seems better, and why? What is still lacking?
+------------------------------------------------------------
+
+1. WHICH MODEL SEEMS BETTER?
+
+The 5-gram model is significantly better than the unigram model.
+
+Quantitative Evidence:
+  - Unigram Accuracy: Val=17.7%, Test=17.8%
+  - 5-gram Accuracy: Val=59.0%, Test=58.4%
+  - Improvement: ~41% absolute, ~3.3x relative
+
+Why 5-gram is better:
+  1. Context Awareness: 5-gram uses previous 4 characters to predict next
+     character, while unigram treats each character independently
+  2. Pattern Recognition: Captures common sequences like 'ing', 'tion', 'the'
+  3. Coherent Text: Generates more word-like and readable sequences
+  4. Better Accuracy: 3x higher prediction accuracy shows it learned
+     meaningful patterns from the data
+
+2. WHAT IS STILL LACKING?
+
+Limited Context Window:
+  - Only 4 characters of history (less than 1 word typically)
+  - Cannot capture long-range dependencies
+  - No understanding of sentence or document structure
+
+Data Sparsity Problem:
+  - With alphabet size V, there are V^5 possible 5-character sequences
+  - Most sequences never appear in training data
+  - Falls back to uniform distribution for unseen contexts
+
+No Semantic Understanding:
+  - Purely statistical character prediction
+  - No concept of word meaning or grammar rules
+  - Cannot maintain topical coherence across sentences
+
+Poor Generalization:
+  - Memorizes specific character sequences from training
+  - Cannot generalize to similar but unseen patterns
+  - Add-one smoothing is too simplistic for rare events
+
+Computational Limitations:
+  - Higher n-grams (n>5) would require exponential memory
+  - Space complexity O(V^n) becomes prohibitive
+
+Modern solutions (RNNs, LSTMs, Transformers) address these issues
+through learned representations and dynamic context handling.
+
+============================================================
+SUMMARY
+============================================================
+
+Model           Val Acc      Test Acc     Required     Status
+-------------------------------------------------------
+Unigram (n=1)        17.67%      17.79% ≥17%         PASS ✓
+5-gram (n=5)         58.95%      58.44% ≥57%         PASS ✓
+
+✓ All Part 1 requirements completed!
+  - Unigram model with add-one smoothing
+  - 5-gram model with add-one smoothing
+  - Accuracy evaluation on validation and test sets
+  - Text generation for response prompts
+  - Free response analysis comparing models

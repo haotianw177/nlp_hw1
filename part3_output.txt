@@ -1,0 +1,40 @@
+Device: cpu
+Vocabulary size: 44
+Training samples: 1600
+Epoch 1/25, Loss: 2.2769, LR: 0.002000, Time: 86.63s
+Validation Accuracy (subset): 0.4315
+Epoch 2/25, Loss: 1.8722, LR: 0.002000, Time: 86.23s
+Epoch 3/25, Loss: 1.7132, LR: 0.002000, Time: 86.26s
+Epoch 4/25, Loss: 1.6190, LR: 0.002000, Time: 86.66s
+Epoch 5/25, Loss: 1.5607, LR: 0.002000, Time: 85.83s
+Epoch 6/25, Loss: 1.5168, LR: 0.002000, Time: 85.37s
+Validation Accuracy (subset): 0.5864
+Epoch 7/25, Loss: 1.4843, LR: 0.002000, Time: 86.65s
+Epoch 8/25, Loss: 1.4554, LR: 0.001000, Time: 85.45s
+Epoch 9/25, Loss: 1.4111, LR: 0.001000, Time: 85.68s
+Epoch 10/25, Loss: 1.3964, LR: 0.001000, Time: 85.40s
+Epoch 11/25, Loss: 1.3831, LR: 0.001000, Time: 86.09s
+Validation Accuracy (subset): 0.6113
+✅ Early stopping: Achieved 60% accuracy!
+
+=== Final Accuracies ===
+Training Accuracy: 0.6265
+Validation Accuracy: 0.6037
+Test Accuracy: 0.6010
+✅ Successfully achieved 60% accuracy requirement!
+
+=== Generated Text ===
+Prompt: <BOS>"I'm not ready to go," said...
+Generated:  to the care and said, "i was a big book and said, "i was a big book and said, "i was a big book and
+
+Prompt: <BOS>Lily and Max were best friend...
+Generated:  and said, "i was a big book and said, "i was a big book and said, "i was a big book and said, "i wa
+
+Prompt: <BOS>He picked up the juice and...
+Generated:  the book and said, "i was a big book and said, "i was a big book and said, "i was a big book and sa
+
+Prompt: <BOS>It was raining, so...
+Generated: n and they had a big book and said, "i was a big book and said, "i was a big book and said, "i was a
+
+Prompt: <BOS>The end of the story was...
+Generated:  a big book and said, "i was a big book and said, "i was a big book and said, "i was a big book and 

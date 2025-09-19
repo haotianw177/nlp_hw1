@@ -1,0 +1,40 @@
+Device: cpu
+Vocabulary size: 44
+Training samples: 1600
+Epoch 1/25, Loss: 2.2836, LR: 0.002000, Time: 86.07s
+Validation Accuracy (subset): 0.4315
+Epoch 2/25, Loss: 1.8855, LR: 0.002000, Time: 85.59s
+Epoch 3/25, Loss: 1.7239, LR: 0.002000, Time: 87.55s
+Epoch 4/25, Loss: 1.6270, LR: 0.002000, Time: 85.17s
+Epoch 5/25, Loss: 1.5641, LR: 0.002000, Time: 85.69s
+Epoch 6/25, Loss: 1.5181, LR: 0.002000, Time: 87.66s
+Validation Accuracy (subset): 0.5807
+Epoch 7/25, Loss: 1.4792, LR: 0.002000, Time: 85.54s
+Epoch 8/25, Loss: 1.4513, LR: 0.001000, Time: 84.92s
+Epoch 9/25, Loss: 1.4077, LR: 0.001000, Time: 88.34s
+Epoch 10/25, Loss: 1.3878, LR: 0.001000, Time: 86.12s
+Epoch 11/25, Loss: 1.3806, LR: 0.001000, Time: 85.20s
+Validation Accuracy (subset): 0.6170
+✅ Early stopping: Achieved 60% accuracy!
+
+=== Final Accuracies ===
+Training Accuracy: 0.6289
+Validation Accuracy: 0.6134
+Test Accuracy: 0.6099
+✅ Successfully achieved 60% accuracy requirement!
+
+=== Generated Text ===
+Prompt: <BOS>"I'm not ready to go," sa...
+Generated: y the boy was so happy and said, "what is the store.<EOS> the bird was so happy and said, "what is the s
+
+Prompt: <BOS>Lily and Max were best fr...
+Generated: .<EOS> the bird was so happy and said, "what is the store.<EOS> the bird was so happy and said, "what is the
+
+Prompt: <BOS>He picked up the juice an...
+Generated: y and said, "what is the store.<EOS> the bird was so happy and said, "what is the store.<EOS> the bird was s
+
+Prompt: <BOS>It was raining, so
+Generated: n and said, "what is the store.<EOS> the bird was so happy and said, "what is the store.<EOS> the bird was s
+
+Prompt: <BOS>The end of the story was
+Generated:  and said, "what is the store.<EOS> the bird was so happy and said, "what is the store.<EOS> the bird was so
