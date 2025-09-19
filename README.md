@@ -6,6 +6,7 @@ Please find the homework assignment instructions [here](https://docs.google.com/
 * Unigram accuracy: Validation Accuracy: 17.67%, Test Accuracy: 17.79%
 * 5-gram accuracy: Validation Accuracy: 58.95%, Test Accuracy: 58.44%
 * Free response:
+I think because space is the most common letters thus the model predict all space characters.
 
 Generating 100 characters for each prompt (Unigram):
 Prompt 1: ␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣␣
